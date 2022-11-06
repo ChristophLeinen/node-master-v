@@ -68,13 +68,17 @@ app.get('/settings', checkAuthenticated, (req, res) => {
 });
 
 app.get('/logout', checkAuthenticated, (req, res) => {
-  delete sessionStore[req.sessionID];// || globalSessionId];
-  res.set('Set-Cookie', `session=; expires=Thu, 01 Jan 1970 00:00:00 GMT`);
+  const sessionId =
+    (req.headers.cookie && req.headers.cookie.split('=')[1]);
+  delete sessionStore[sessionId];
+
+  var exDate = new Date();
+  exDate.setDate(exDate.getDate() - 1); // remove one day
+  res.set('Set-Cookie', `session=; expires=${exDate}`);
   fs.writeFileSync('./data/sessions.json', JSON.stringify(sessionStore));
-  res.redirect('/login');
+  res.redirect('/');
 });
 
-// let globalSessionId;
 // POST Requests
 app.post('/login', checkNotAuthenticated, async (req, res) => {
   const account = accounts.find((account) => req.body.name === account.name);
@@ -82,11 +86,10 @@ app.post('/login', checkNotAuthenticated, async (req, res) => {
     if (await bcrypt.compare(req.body.password, account.password)) {
       const sessionId = uuidv4();
       sessionStore[sessionId] = account.id;
-      // globalSessionId = sessionId;
-      var exDate = new Date();
-      // add a day
-      exDate.setDate(exDate.getDate() + 1);
       fs.writeFileSync('./data/sessions.json', JSON.stringify(sessionStore));
+  
+      var exDate = new Date();
+      exDate.setDate(exDate.getDate() + 1); // add a day
       res.set('Set-Cookie', `session=${sessionId}; expires=${exDate}`);
       res.redirect('/');
     }
