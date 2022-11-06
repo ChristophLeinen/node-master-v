@@ -1,62 +1,44 @@
 [
-  {
-    "id": "001",
-    "name": "Hans Schmidt",
-    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvA3I_h3MdTKQymVlhpaQfDaKDi8XYVoQ61g&usqp=CAU",
-    "status": "Aller guten Dinge sind Drei."
-  },
-  {
-    "id": "002",
-    "name": "Markus Hammer",
-    "image": "https://media-exp1.licdn.com/dms/image/C4D03AQFK1fy0rKnlfQ/profile-displayphoto-shrink_800_800/0/1568380260076?e=2147483647&v=beta&t=94eGbL43sfCKvV-KfmrfCIdhFetXhgx1LSpttZbNPIY",
-    "status": "Wer A sagt muss auch B sagen."
-  },
-  {
-    "id": "003",
-    "name": "Klara Schnabel",
-    "image": "https://media-exp1.licdn.com/dms/image/C5603AQGRE82nWEVi5Q/profile-displayphoto-shrink_200_200/0/1605874253138?e=2147483647&v=beta&t=bkEG7J2pBpNWKLElJYHcaJMI-_X5ETkPK4MOczqnikE",
-    "status": "Mein Auto ist mein Leben."
-  },
-  {
-    "id": "004",
-    "name": "Frank Taler",
-    "image": "https://profile-images.xing.com/images/2c40aa394622629545a86444a8e5e022-2/michael-frank.1024x1024.jpg",
-    "status": "Ohne mich geht nichts."
-  },
-  {
-    "id": "005",
-    "name": "Sabine Neudorf",
-    "image": "https://media-exp1.licdn.com/dms/image/C4E03AQFnhXs3gX61Dw/profile-displayphoto-shrink_800_800/0/1658498741427?e=2147483647&v=beta&t=jlvsE0hWGzkVg1XpaENI_kRALidCthvAjDgxLfJLRPk",
-    "status": "Morgens brauche ich einen Kaffee."
-  },
-  {
-    "id": "006",
-    "name": "Helga Wiedel",
-    "image": "https://media-exp1.licdn.com/dms/image/C4E03AQGGZt3i0Wd_lA/profile-displayphoto-shrink_800_800/0/1662472583478?e=2147483647&v=beta&t=xl7mgS-s6kkUYQTgVTA_pa3dAixKicFZfijbJ0ltHK0",
-    "status": "Qualität kommt nicht von allein."
-  },
-  {
-    "id": "007",
-    "name": "James Bond",
-    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9xOuFuV1fmG0YNI1hz8KBRc5gLE95QD4mqg&usqp=CAU",
-    "status": "Mein name ist Bond. James Bond."
-  },
-  {
-    "id": "584d46ce-5ff8-4257-b135-144a375e66ba",
-    "name": "Mr. Bean",
-    "status": "",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/3/34/PICA.jpg"
-  },
-  {
-    "id": "7d9864bf-c213-491e-896c-eb8df5ad1b4f",
-    "name": "Dr. Apple",
-    "status": "",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/3/34/PICA.jpg"
-  },
-  {
-    "id": "b15ebcbc-9e0f-401c-9c8c-4f7cc942bb8a",
-    "name": "testing",
-    "status": "",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/3/34/PICA.jpg"
-  }
+    {
+        "id": "bb7f2ed1-cf86-456e-8cd4-a3338e91edf4",
+        "name": "Hans Schmidt",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvA3I_h3MdTKQymVlhpaQfDaKDi8XYVoQ61g&usqp=CAU",
+        "status": "Aller guten Dinge sind Drei."
+    },
+    {
+        "id": "1c6df2ae-655c-472d-8929-a61bcf63c819",
+        "name": "Markus Hammer",
+        "image": "https://media-exp1.licdn.com/dms/image/C4D03AQFK1fy0rKnlfQ/profile-displayphoto-shrink_800_800/0/1568380260076?e=2147483647&v=beta&t=94eGbL43sfCKvV-KfmrfCIdhFetXhgx1LSpttZbNPIY",
+        "status": "Wer A sagt muss auch B sagen."
+    },
+    {
+        "id": "527bafaa-b342-4cdd-b6b6-c1b109858096",
+        "name": "Klara Schnabel",
+        "image": "https://media-exp1.licdn.com/dms/image/C5603AQGRE82nWEVi5Q/profile-displayphoto-shrink_200_200/0/1605874253138?e=2147483647&v=beta&t=bkEG7J2pBpNWKLElJYHcaJMI-_X5ETkPK4MOczqnikE",
+        "status": "Mein Auto ist mein Leben."
+    },
+    {
+        "id": "f4d3a01e-65e4-421e-8e98-1f9b12134aeb",
+        "name": "Frank Taler",
+        "image": "https://profile-images.xing.com/images/2c40aa394622629545a86444a8e5e022-2/michael-frank.1024x1024.jpg",
+        "status": "Ohne mich geht nichts."
+    },
+    {
+        "id": "f5e69a4f-8e6f-4717-9bd3-faed4af3d025",
+        "name": "Sabine Neudorf",
+        "image": "https://media-exp1.licdn.com/dms/image/C4E03AQFnhXs3gX61Dw/profile-displayphoto-shrink_800_800/0/1658498741427?e=2147483647&v=beta&t=jlvsE0hWGzkVg1XpaENI_kRALidCthvAjDgxLfJLRPk",
+        "status": "Morgens brauche ich einen Kaffee."
+    },
+    {
+        "id": "797e7f1a-8cb3-4667-9747-dc3e302cb7d2",
+        "name": "Helga Wiedel",
+        "image": "https://media-exp1.licdn.com/dms/image/C4E03AQGGZt3i0Wd_lA/profile-displayphoto-shrink_800_800/0/1662472583478?e=2147483647&v=beta&t=xl7mgS-s6kkUYQTgVTA_pa3dAixKicFZfijbJ0ltHK0",
+        "status": "Qualität kommt nicht von allein."
+    },
+    {
+        "id": "5f83c5dd-1eb4-4e94-867a-e23cb2660013",
+        "name": "James Bond",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9xOuFuV1fmG0YNI1hz8KBRc5gLE95QD4mqg&usqp=CAU",
+        "status": "Mein name ist Bond. James Bond."
+    }
 ]

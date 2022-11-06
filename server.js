@@ -1,5 +1,6 @@
 const express = require('express');
 const uuidv4 = require('uuid').v4;
+const bcrypt = require('bcrypt');
 const app = express();
 
 const fs = require('fs');
@@ -67,23 +68,21 @@ app.get('/settings', checkAuthenticated, (req, res) => {
 });
 
 app.get('/logout', checkAuthenticated, (req, res) => {
-  delete sessionStore[req.sessionID || globalSessionId];
+  delete sessionStore[req.sessionID];// || globalSessionId];
   res.set('Set-Cookie', `session=; expires=Thu, 01 Jan 1970 00:00:00 GMT`);
   fs.writeFileSync('./data/sessions.json', JSON.stringify(sessionStore));
   res.redirect('/login');
 });
 
-let globalSessionId;
+// let globalSessionId;
 // POST Requests
-app.post('/login', checkNotAuthenticated, (req, res) => {
+app.post('/login', checkNotAuthenticated, async (req, res) => {
   const account = accounts.find((account) => req.body.name === account.name);
   if (account) {
-    if (req.body.password === account.password) {
+    if (await bcrypt.compare(req.body.password, account.password)) {
       const sessionId = uuidv4();
-      console.log('Session ID: ' + sessionId);
-      //await bcrypt.compare(req.body.password, account.password)) {
       sessionStore[sessionId] = account.id;
-      globalSessionId = sessionId;
+      // globalSessionId = sessionId;
       var exDate = new Date();
       // add a day
       exDate.setDate(exDate.getDate() + 1);
@@ -104,7 +103,7 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
     res.redirect('/register?error=true');
   } else {
     try {
-      const hashedPassword = req.body.password; //await bcrypt.hash(req.body.password, 10);
+      const hashedPassword = await bcrypt.hash(req.body.password, 10);
       const id = uuidv4();
       const name = req.body.name;
       const account = {
@@ -142,9 +141,8 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
 });
 
 function checkAuthenticated(req, res, next) {
-  console.log(req.headers.cookie);
   const sessionId =
-    (req.headers.cookie && req.headers.cookie.split('=')[1]) || globalSessionId;
+    (req.headers.cookie && req.headers.cookie.split('=')[1]);
   const userId = sessionStore[sessionId];
   if (userId && sessionId) {
     req.user = users.find((user) => user.id === userId);
@@ -155,7 +153,6 @@ function checkAuthenticated(req, res, next) {
 }
 
 function checkNotAuthenticated(req, res, next) {
-  console.log(req.headers.cookie);
   const sessionId = req.headers.cookie && req.headers.cookie.split('=')[1];
   const userId = sessionStore[sessionId];
   if (!userId || !sessionId) {

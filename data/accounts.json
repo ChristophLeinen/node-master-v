@@ -1,23 +1,51 @@
 [
-  {
-    "id": "584d46ce-5ff8-4257-b135-144a375e66ba",
-    "name": "Mr. Bean",
-    "email": "bean@something.org",
-    "password": "bean",
-    "active": true
-  },
-  {
-    "id": "7d9864bf-c213-491e-896c-eb8df5ad1b4f",
-    "name": "Dr. Apple",
-    "email": "apple@byom.de",
-    "password": "apple",
-    "active": true
-  },
-  {
-    "id": "b15ebcbc-9e0f-401c-9c8c-4f7cc942bb8a",
-    "name": "testing",
-    "email": "test@byom.de",
-    "password": "tesing",
-    "active": true
-  }
+    {
+        "id": "bb7f2ed1-cf86-456e-8cd4-a3338e91edf4",
+        "name": "Hans Schmidt",
+        "email": "hans.schmidt@TheNetwork.com",
+        "password": "$2b$10$hHYj.GgPS6CBfjcrtFtDxO2C/xJYC3jYdpJ0UKf/YUnFkkTkiajHq",
+        "active": true
+    },
+    {
+        "id": "1c6df2ae-655c-472d-8929-a61bcf63c819",
+        "name": "Markus Hammer",
+        "email": "markus.hammer@TheNetwork.de",
+        "password": "$2b$10$nJKgEW/kPnx5zu/7Q7gcce1IDE8RWt7MaMtCWVf2szm0ZLT5wsPv.",
+        "active": true
+    },
+    {
+        "id": "527bafaa-b342-4cdd-b6b6-c1b109858096",
+        "name": "Klara Schnabel",
+        "email": "klara.schnabel@TheNetwork.com",
+        "password": "$2b$10$b5Zh/DhNxbJMPcwJNUPgmeQPO3aRRIerJUPSt0EJ2x0cJ1Z9sJT5e",
+        "active": true
+    },
+    {
+        "id": "f4d3a01e-65e4-421e-8e98-1f9b12134aeb",
+        "name": "Frank Taler",
+        "email": "frank.taler@TheNetwork.com",
+        "password": "$2b$10$TNQt7uRpGLY//Hcp.leE/.nCYiPb/fIb1e9URLYekvA.h9BavhhPi",
+        "active": true
+    },
+    {
+        "id": "f5e69a4f-8e6f-4717-9bd3-faed4af3d025",
+        "name": "Sabine Neudorf",
+        "email": "sabine.neudorf@TheNetwork.com",
+        "password": "$2b$10$R8/fMkfm.jb2ScZwJwGDBuVt0/3ClLdIdmbiV/yOgeUtPAcVEKNFi",
+        "active": true
+    },
+    {
+        "id": "797e7f1a-8cb3-4667-9747-dc3e302cb7d2",
+        "name": "Helga Wiedel",
+        "email": "helga.wiedel@TheNetwork.com",
+        "password": "$2b$10$SsvN4z9uNfgcrMN6Jz6fVez07dkWOj3DKc0dingxRTBbrfQWt4h6m",
+        "active": true
+    },
+    {
+        "id": "5f83c5dd-1eb4-4e94-867a-e23cb2660013",
+        "name": "James Bond",
+        "email": "james.bond@mi6.gov",
+        "password": "$2b$10$pOp1kRv6WAzJlT8nDxgE4uLz00ucoO8yZg5FTi5Nkr.1ItguD/LL.",
+        "active": true
+    }
 ]
