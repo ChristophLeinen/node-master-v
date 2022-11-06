@@ -1,1 +1,9 @@
-[{"id":"584d46ce-5ff8-4257-b135-144a375e66ba","name":"Mr. Bean","email":"bean@something.org","password":"bean","active":true}]
+[
+  {
+    "id": "584d46ce-5ff8-4257-b135-144a375e66ba",
+    "name": "Mr. Bean",
+    "email": "bean@something.org",
+    "password": "bean",
+    "active": true
+  }
+]

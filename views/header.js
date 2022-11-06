@@ -1,117 +1,74 @@
 module.exports = {
-  render: function (title) {
+  render: function (title, icon) {
     return `
-      <head>
-        <title>${title}</title>
-        <style>
-          html, body, main {
-            height: 100%;
+      <header>
+        <nav>
+          <h1 tabindex="1">${title}</h1>
+          <img id="profil" class="userImage" onenter="cwl.toggle()" onclick="cwl.toggle()" src=${icon} tabindex="2" />
+        </nav>
+      </header>
+      <script>
+        document.getElementById("profil").addEventListener("keyup", function (event) {
+          if (event.key === "Enter") {
+            this.onclick();
           }
+        });
 
-          loginMain {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-          }
-        
-          loginForm {
-            width: 16rem;
-            display: flex;
-            flex-direction: column;
-          }
+        window.cwl = {
+          toggle: function () {
+            "use strict";
 
-          p {
-            width: 16rem;
-            margin: 0.5rem 0;
-            border-radius: 0.5rem;
-            border: 0.0125rem solid red;
-            background-color: #FAA;
-            padding: 0.5rem;
-          }
-        
-          input {
-            height: 2rem;
-            margin: 0.5rem 0;
-            text-indent: 0.5rem;
-        
-            border-radius: 0.5rem;
-            border: none;
-            box-shadow: 0.125rem 0.125rem 0.5rem grey;
-          }
-        
-          input:focus {
-            outline: 0.125rem solid mediumaquamarine;
-          }
-        
-          button {
-            height: 2rem;
-            background-color: mediumaquamarine;
-            color: white;
-            font-weight: bold;
-            margin: 0.5rem 0;
-        
-            border-radius: 0.5rem;
-            border: none;
-            box-shadow: 0.125rem 0.125rem 0.5rem grey;
-          }
+            let menu = document.getElementById("menu");
+            if (menu) {
+              document.body.removeChild(menu);
+            } else {
+              menu = document.createElement("div");
+              menu.setAttribute("id", "menu");
+              document.body.appendChild(menu);
+  
+              const list = document.createElement("ul");
+              menu.appendChild(list);
 
-          .nav {
-            height: 2.5rem;
-            background-color: mediumaquamarine;
-            line-height: 2.5rem;
-            color: white;
-            padding: 0 1rem;
-            display: flex;
-            justify-content: space-between;
-          }
-          
-          .userImage {
-            border-radius: 2rem;
-            width: 2rem;
-            height: 2rem;
-            margin: 0.25rem;
-            border: 0.125rem solid white;
-            cursor: pointer;
-          }
+              let item, icon, text; 
+              [
+                {
+                  icon: "https://icons.iconarchive.com/icons/iconsmind/outline/512/Dashboard-icon.png",
+                  title: "Dashboard",
+                  press: "window.location.href = './dashboard'"
+                },
+                {
+                  icon: "https://cdn-icons-png.flaticon.com/512/126/126472.png",
+                  title: "Settings",
+                  press: "window.location.href = './settings'"
+                },
+                {
+                  icon: "https://cdn-icons-png.flaticon.com/512/2767/2767155.png",
+                  title: "Logout",
+                  press: "window.location.href = './logout'"
+                }
+              ].forEach(function (prop, index) {
+                item = document.createElement("li");
+                item.setAttribute("onclick", prop.press);
+                item.setAttribute("tabindex", "" + index + 3);
+                item.addEventListener("keyup", function (event) {
+                  if (event.key === "Enter") {
+                    this.onclick();
+                  }
+                });
+                list.appendChild(item);
 
-          .grid {
-            padding: 1rem;
-            display: flex;
-            width: 100%;
-            flex-wrap: wrap;
-          }
+                icon = document.createElement("img");
+                icon.classList.add("menuIcon");
+                icon.setAttribute("src", prop.icon);
+                item.appendChild(icon);
 
-          .userBox {
-            margin: 1rem;
-            height: 18rem;
-            padding: 1rem;
-            width: 12rem;
-            border-radius: 1rem;
-            box-shadow: 0.125rem 0.125rem 0.5rem grey;
-            text-align: center;
+                text = document.createElement("span");
+                text.innerText = prop.title;
+                item.appendChild(text);
+              });
+            }
           }
-
-          userBox:hover {
-            box-shadow: 0.125rem 0.125rem 2rem grey;
-          }
-
-          .userBoxImage {
-            width: 10rem;
-            height: 10rem;
-            border-radius: 9rem;
-            margin-bottom: 0.75rem;
-          }
-
-          .userBoxName {
-            margin-bottom: 0.75rem;
-          }
-
-          * {
-            box-sizing: border-box;
-            padding: 0;
-            margin: 0;
-          }
-        </style>
-    </head>`;
+        }
+      </script>`;
   },
 };
