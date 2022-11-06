@@ -5,5 +5,19 @@
     "email": "bean@something.org",
     "password": "bean",
     "active": true
+  },
+  {
+    "id": "7d9864bf-c213-491e-896c-eb8df5ad1b4f",
+    "name": "Dr. Apple",
+    "email": "apple@byom.de",
+    "password": "apple",
+    "active": true
+  },
+  {
+    "id": "b15ebcbc-9e0f-401c-9c8c-4f7cc942bb8a",
+    "name": "testing",
+    "email": "test@byom.de",
+    "password": "tesing",
+    "active": true
   }
 ]

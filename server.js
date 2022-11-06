@@ -1,34 +1,32 @@
 const express = require('express');
+const uuidv4 = require('uuid').v4;
 const app = express();
-//const bcrypt = require('bcrypt');
+
 const fs = require('fs');
-const { v4: uuidv4 } = require('uuid');
-const sendmail = require('sendmail');
-
-app.use(express.json());
-
-app.use(express.urlencoded({ extended: false }));
-
 const users = JSON.parse(fs.readFileSync('./data/users.json'));
 const accounts = JSON.parse(fs.readFileSync('./data/accounts.json'));
+const sessionStore = JSON.parse(fs.readFileSync('./data/sessions.json'));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 // GET requests
-
-app.get('/', (req, res) => {
-  res.status(200).send();
+app.get('/', checkAuthenticated, (req, res) => {
+  const dashboard = require('./views/dashboard');
+  res.status(200).send(dashboard.render(users, req.user.id));
 });
 
-app.get('/login', (req, res) => {
+app.get('/login', checkNotAuthenticated, (req, res) => {
   const login = require('./views/login');
   res.status(200).send(login.render(req.query));
 });
 
-app.get('/register', (req, res) => {
+app.get('/register', checkNotAuthenticated, (req, res) => {
   const register = require('./views/register');
   res.status(200).send(register.render(req.query));
 });
 
-app.get('/activate', (req, res) => {
+app.get('/activate', checkNotAuthenticated, (req, res) => {
   const activate = require('./views/activate');
   const account = accounts.find((account) => account.id === req.query.uuid);
   let message;
@@ -43,7 +41,7 @@ app.get('/activate', (req, res) => {
         id: account.id,
         name: account.name,
         status: '',
-        image: '',
+        image: 'https://upload.wikimedia.org/wikipedia/commons/3/34/PICA.jpg',
       };
       users.push(user);
       fs.writeFileSync('./data/users.json', JSON.stringify(users));
@@ -52,25 +50,53 @@ app.get('/activate', (req, res) => {
     }
   } else {
     message =
-      'User could not be activated, as the user is unkown to the system.';
+      'User could not be activated, as the user is unknown to the system.';
   }
   res.status(200).send(activate.render(message));
 });
 
-app.get('/dashboard', (req, res) => {
+app.get('/dashboard', checkAuthenticated, (req, res) => {
   const dashboard = require('./views/dashboard');
-  res.status(200).send(dashboard.render(users));
+  res.status(200).send(dashboard.render(users, req.user.id));
+  res.redirect('/login');
 });
 
-app.get('/settings', (req, res) => {
+app.get('/settings', checkAuthenticated, (req, res) => {
   const settings = require('./views/settings');
-  const user = users[0];
-  res.status(200).send(settings.render(user));
+  res.status(200).send(settings.render(req.user));
 });
 
-// POST Requests
+app.get('/logout', checkAuthenticated, (req, res) => {
+  delete sessionStore[req.sessionID || globalSessionId];
+  res.set('Set-Cookie', `session=; expires=Thu, 01 Jan 1970 00:00:00 GMT`);
+  fs.writeFileSync('./data/sessions.json', JSON.stringify(sessionStore));
+  res.redirect('/login');
+});
 
-app.post('/register', async (req, res) => {
+let globalSessionId;
+// POST Requests
+app.post('/login', checkNotAuthenticated, (req, res) => {
+  const account = accounts.find((account) => req.body.name === account.name);
+  if (account) {
+    if (req.body.password === account.password) {
+      const sessionId = uuidv4();
+      console.log('Session ID: ' + sessionId);
+      //await bcrypt.compare(req.body.password, account.password)) {
+      sessionStore[sessionId] = account.id;
+      globalSessionId = sessionId;
+      var exDate = new Date();
+      // add a day
+      exDate.setDate(exDate.getDate() + 1);
+      fs.writeFileSync('./data/sessions.json', JSON.stringify(sessionStore));
+      res.set('Set-Cookie', `session=${sessionId}; expires=${exDate}`);
+      res.redirect('/');
+    }
+  } else {
+    res.redirect('/login?error=true');
+  }
+});
+
+app.post('/register', checkNotAuthenticated, async (req, res) => {
   const email = req.body.email;
   const account = accounts.find((account) => account.email === email);
 
@@ -92,6 +118,7 @@ app.post('/register', async (req, res) => {
       accounts.push(account);
       fs.writeFileSync('./data/accounts.json', JSON.stringify(accounts));
 
+      const sendmail = require('sendmail');
       sendmail({
         from: 'registration-Office@TheNetwork.com',
         to: email,
@@ -114,21 +141,28 @@ app.post('/register', async (req, res) => {
   }
 });
 
-app.post('/login', async (req, res) => {
-  const account = accounts.find((account) => account.name === req.body.name);
-  if (!account) {
-    res.redirect('/login?error=true');
+function checkAuthenticated(req, res, next) {
+  console.log(req.headers.cookie);
+  const sessionId =
+    (req.headers.cookie && req.headers.cookie.split('=')[1]) || globalSessionId;
+  const userId = sessionStore[sessionId];
+  if (userId && sessionId) {
+    req.user = users.find((user) => user.id === userId);
+    return next();
   }
-  try {
-    if (req.body.password === account.password) {
-      //await bcrypt.compare(req.body.password, account.password)) {
-      res.redirect('/dashboard');
-    } else {
-      res.redirect('/login?error=true');
-    }
-  } catch {
-    res.status(500).send();
+
+  res.redirect('/login');
+}
+
+function checkNotAuthenticated(req, res, next) {
+  console.log(req.headers.cookie);
+  const sessionId = req.headers.cookie && req.headers.cookie.split('=')[1];
+  const userId = sessionStore[sessionId];
+  if (!userId || !sessionId) {
+    return next();
   }
-});
+
+  res.redirect('/');
+}
 
 app.listen(3000);

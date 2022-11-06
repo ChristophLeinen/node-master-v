@@ -2,16 +2,15 @@ const head = require('./head');
 const header = require('./header');
 
 module.exports = {
-  render: function (users) {
-    const length = users.length;
+  render: function (users, userid) {
+    const currentUser = users.find((user) => user.id === userid);
     return `
         <!DOCTYPE html>
             ${head.render('Dashboard')}
             <body>
                 ${header.render(
-                  `Welcome ${users[length - 1].name}!`,
-                  users[length - 1].image ||
-                    'https://upload.wikimedia.org/wikipedia/commons/3/34/PICA.jpg'
+                  `Welcome ${currentUser.name}!`,
+                  currentUser.image
                 )}
                 <main class="main">
                     <h2>Users:</h2>
@@ -20,10 +19,7 @@ module.exports = {
                           .map((user) => {
                             return `
                                 <div class="userBox" tabindex="0">
-                                    <img class="userBoxImage" src=${
-                                      user.image ||
-                                      'https://upload.wikimedia.org/wikipedia/commons/3/34/PICA.jpg'
-                                    } />
+                                    <img class="userBoxImage" src=${user.image} />
                                     <h3 class="userBoxName">${user.name}</h3>
                                     <p> ${user.status} </p>
                                 </div>
