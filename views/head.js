@@ -13,7 +13,7 @@ module.exports = {
             align-items: center;
             justify-content: center;
           }
-        
+
           .loginForm {
             width: 16rem;
             display: flex;
@@ -28,28 +28,38 @@ module.exports = {
             background-color: #FAA;
             padding: 0.5rem;
           }
-        
+
+          .success {
+            width: 16rem;
+            margin: 0.5rem 0;
+            border-radius: 0.5rem;
+            border: 0.0125rem solid mediumaquamarine;
+            background-color: #D7F1E9;
+            padding: 0.5rem;
+            text-align: center;
+          }
+
           input {
             height: 2rem;
             margin: 0.5rem 0;
             text-indent: 0.5rem;
-        
+
             border-radius: 0.5rem;
             border: none;
             box-shadow: 0.125rem 0.125rem 0.5rem grey;
           }
-        
+
           input:focus {
             outline: 0.125rem solid mediumaquamarine;
           }
-        
+
           button {
             height: 2rem;
             background-color: mediumaquamarine;
             color: white;
             font-weight: bold;
             margin: 0.5rem 0;
-        
+
             border-radius: 0.5rem;
             border: none;
             box-shadow: 0.125rem 0.125rem 0.5rem grey;
@@ -68,7 +78,7 @@ module.exports = {
             display: flex;
             justify-content: space-between;
           }
-          
+
           .userImage {
             border-radius: 2rem;
             width: 2rem;

@@ -64,7 +64,7 @@ app.get('/dashboard', checkAuthenticated, (req, res) => {
 
 app.get('/settings', checkAuthenticated, (req, res) => {
   const settings = require('./views/settings');
-  res.status(200).send(settings.render(req.user));
+  res.status(200).send(settings.render(req.user, req.query));
 });
 
 app.get('/logout', checkAuthenticated, (req, res) => {
@@ -87,7 +87,7 @@ app.post('/login', checkNotAuthenticated, async (req, res) => {
       const sessionId = uuidv4();
       sessionStore[sessionId] = account.id;
       fs.writeFileSync('./data/sessions.json', JSON.stringify(sessionStore));
-  
+
       var exDate = new Date();
       exDate.setDate(exDate.getDate() + 1); // add a day
       res.set('Set-Cookie', `session=${sessionId}; expires=${exDate}`);
@@ -126,12 +126,12 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
         to: email,
         subject: `Registration for user ${name}`,
         text: `Dear ${name},
-                
+
                 You habe successfully registered to TheNetwork.
                 Inorder to log in to your account, you first need to activate it.
                 For this, please use the following activation link:
                 http://localhost:3000/activate?uuid=${id}
-                
+
                 Best Regards,
                 The Registration Office
                 TheNetwork`,
@@ -143,13 +143,23 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
   }
 });
 
+app.post('/settings', checkAuthenticated, async (req, res) => {
+  req.user.status = req.body.status;
+  req.user.image = req.body.image;
+  fs.writeFileSync('./data/users.json', JSON.stringify(users));
+
+  res.status(201).redirect('/settings?saved=true');
+});
+
 function checkAuthenticated(req, res, next) {
   const sessionId =
     (req.headers.cookie && req.headers.cookie.split('=')[1]);
   const userId = sessionStore[sessionId];
   if (userId && sessionId) {
     req.user = users.find((user) => user.id === userId);
-    return next();
+    if (req.user) {
+      return next();
+    }
   }
 
   res.redirect('/login');
