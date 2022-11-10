@@ -12,8 +12,7 @@ http://localhost:3000/
 
 # Known Issues
 
-- The registration mail is not getting send
-  As a workaround, create the activation link your self: http://localhost:3000/activate?uuid=<user-id> (see the <user-id> in the accounts.json for your newly created user)
+- The registration mail is not getting send. As a workaround, create the activation link your self: http://localhost:3000/activate?uuid={user-id} (see the {user-id} in the accounts.json for your newly created user)
   
 # Work in Process
 - The image upload is not working yet
