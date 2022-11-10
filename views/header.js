@@ -3,7 +3,10 @@ module.exports = {
     return `
       <header>
         <nav>
-          <h1 tabindex="1">${title}</h1>
+          <div class="flex">
+            <img class="companyLogoSmall" src="https://cdn-icons-png.flaticon.com/512/149/149181.png" />
+            <h1 tabindex="1">${title}</h1>
+          </div>
           <img id="profil" class="userImage" onenter="cwl.toggle()" onclick="cwl.toggle()" src=${icon} tabindex="2" />
         </nav>
       </header>
@@ -25,11 +28,11 @@ module.exports = {
               menu = document.createElement("div");
               menu.setAttribute("id", "menu");
               document.body.appendChild(menu);
-  
+
               const list = document.createElement("ul");
               menu.appendChild(list);
 
-              let item, icon, text; 
+              let item, icon, text;
               [
                 {
                   icon: "https://icons.iconarchive.com/icons/iconsmind/outline/512/Dashboard-icon.png",

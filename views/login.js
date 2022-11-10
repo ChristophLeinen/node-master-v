@@ -8,6 +8,8 @@ module.exports = {
             <body>
                 <main class="loginMain">
                     <form class="loginForm" action="/login" method="POST">
+                        <img class="companyLogoBig" src="https://cdn-icons-png.flaticon.com/512/149/149181.png" />
+                        <p class="companyTitle"> THE NETWORK </p>
                         ${
                           params.error
                             ? `<p class="error"> Username or Password was incorrect. </p>`

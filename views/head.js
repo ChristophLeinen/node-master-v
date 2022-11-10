@@ -8,6 +8,29 @@ module.exports = {
             height: 100%;
           }
 
+          .companyLogoBig {
+            height: 10rem;
+            width: 10rem;
+            margin: auto;
+          }
+
+          .companyTitle {
+            text-align: center;
+            font-weight: bold;
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 1rem auto;
+          }
+
+          .companyLogoSmall {
+            height: 2rem;
+            width: 2rem;
+            margin: 0.25rem 1rem 0.25rem 0;
+          }
+
+          .flex {
+            display: flex;
+          }
+
           .loginMain {
             display: flex;
             align-items: center;

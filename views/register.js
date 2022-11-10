@@ -11,7 +11,9 @@ module.exports = {
                       params.mail
                         ? `<p>Registration successful, email was send to: ${params.mail}</p>`
                         : `<form class="loginForm" action="/register" method="POST">
-                            ${
+                        <img class="companyLogoBig" src="https://cdn-icons-png.flaticon.com/512/149/149181.png" />
+                        <p class="companyTitle"> THE NETWORK </p>
+                        ${
                               params.error
                                 ? `<p class="error"> E-mail is already in use. </p>`
                                 : ''
