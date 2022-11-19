@@ -1,4 +1,4 @@
-const head = require('./head');
+const head = require('../components/head');
 
 module.exports = {
   render: function (params) {
@@ -19,31 +19,33 @@ module.exports = {
                                 : ''
                             }
                             <input
+                                class="cwlInput"
                                 type="text"
                                 name="name"
                                 placeholder="Username"
                                 required
                             />
                             <input
+                                class="cwlInput"
                                 type="email"
                                 name="email"
                                 placeholder="E-mail"
                                 required
                             />
                             <input
+                                class="cwlInput"
                                 type="password"
                                 name="password"
                                 placeholder="Password"
                                 required
                             />
                             <input
+                                class="cwlInput"
                                 type="password"
                                 placeholder="Repeat Password"
                                 required
                             />
-                            <button
-                                type="submit"
-                            >
+                            <button type="submit">
                                 Register
                             </button>
                             <button

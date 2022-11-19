@@ -1,5 +1,5 @@
-const head = require('./head');
-const header = require('./header');
+const head = require('../components/head');
+const header = require('../components/header');
 
 module.exports = {
   render: function (users, userid) {
@@ -14,7 +14,7 @@ module.exports = {
                 )}
                 <main class="main">
                     <h2>Users:</h2>
-                    <div class="grid">  
+                    <div class="grid">
                         ${users
                           .map((user) => {
                             return `

@@ -1,4 +1,5 @@
 const express = require('express');
+const fileUpload = require('express-fileupload');
 const uuidv4 = require('uuid').v4;
 const bcrypt = require('bcrypt');
 const app = express();
@@ -8,7 +9,7 @@ const users = JSON.parse(fs.readFileSync('./data/users.json'));
 const accounts = JSON.parse(fs.readFileSync('./data/accounts.json'));
 const sessionStore = JSON.parse(fs.readFileSync('./data/sessions.json'));
 
-app.use(express.json());
+app.use(fileUpload());
 app.use(express.urlencoded({ extended: false }));
 
 // GET requests
@@ -62,9 +63,14 @@ app.get('/dashboard', checkAuthenticated, (req, res) => {
   res.redirect('/login');
 });
 
+app.get('/images/:path', checkAuthenticated, (req, res) => {
+  res.sendFile(__dirname + req.url);
+});
+
 app.get('/settings', checkAuthenticated, (req, res) => {
   const settings = require('./views/settings');
-  res.status(200).send(settings.render(req.user, req.query));
+  const account = accounts.find((account) => req.user.id === account.id);
+  res.status(200).send(settings.render(req.user, account.email, req.query));
 });
 
 app.get('/logout', checkAuthenticated, (req, res) => {
@@ -127,8 +133,8 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
         subject: `Registration for user ${name}`,
         text: `Dear ${name},
 
-                You habe successfully registered to TheNetwork.
-                Inorder to log in to your account, you first need to activate it.
+                You have successfully registered to TheNetwork.
+                In order to log in to your account, you first need to activate it.
                 For this, please use the following activation link:
                 http://localhost:3000/activate?uuid=${id}
 
@@ -143,9 +149,13 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
   }
 });
 
-app.post('/settings', checkAuthenticated, async (req, res) => {
+app.post('/settings', checkAuthenticated, (req, res) => {
   req.user.status = req.body.status;
-  req.user.image = req.body.image;
+
+  if (req.files) {
+    req.user.image = `images/${req.user.id}-${req.files.image.name}`;
+    fs.writeFileSync(req.user.image, req.files.image.data);
+  }
   fs.writeFileSync('./data/users.json', JSON.stringify(users));
 
   res.status(201).redirect('/settings?saved=true');
