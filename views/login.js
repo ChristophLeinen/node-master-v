@@ -17,9 +17,9 @@ module.exports = {
                         }
                         <input
                             class="cwlInput"
-                            type="text"
-                            name="name"
-                            placeholder="Username"
+                            type="email"
+                            name="email"
+                            placeholder="E-mail"
                             required
                         />
                         <input

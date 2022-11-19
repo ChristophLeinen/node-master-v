@@ -87,7 +87,7 @@ app.get('/logout', checkAuthenticated, (req, res) => {
 
 // POST Requests
 app.post('/login', checkNotAuthenticated, async (req, res) => {
-  const account = accounts.find((account) => req.body.name === account.name);
+  const account = accounts.find((account) => req.body.email === account.email);
   if (account) {
     if (await bcrypt.compare(req.body.password, account.password)) {
       const sessionId = uuidv4();
