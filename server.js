@@ -97,10 +97,12 @@ app.post('/login', checkNotAuthenticated, async (req, res) => {
       var exDate = new Date();
       exDate.setDate(exDate.getDate() + 1); // add a day
       res.set('Set-Cookie', `session=${sessionId}; expires=${exDate}`);
-      res.redirect('/');
+      res.status(200).redirect('/');
+    } else {
+      res.status(500).redirect('/login?error=true');
     }
   } else {
-    res.redirect('/login?error=true');
+    res.status(500).redirect('/login?error=true');
   }
 });
 
